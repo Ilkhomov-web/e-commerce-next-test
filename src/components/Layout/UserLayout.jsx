@@ -5,9 +5,12 @@ import Navbar from "../UI/navbar/Navbar";
 
 export default function UserLayout({ children, title = "My site" }) {
   return (
-    <Box>
+    <Box display="flex" flexDirection="column" minHeight="100vh">
+      {/* Header */}
       <Navbar />
-      <Container component="main" maxWidth={"xl"} sx={{ background: "gray" }}>
+
+      {/* Main content */}
+      <Container component="main" maxWidth="xl" sx={{ flexGrow: 1, py: 0 }}>
         {children}
       </Container>
     </Box>

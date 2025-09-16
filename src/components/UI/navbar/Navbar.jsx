@@ -9,7 +9,17 @@ import LoginIcon from "@mui/icons-material/Login";
 
 const Navbar = () => {
   return (
-    <Box sx={{ padding: "20px 0px", boxShadow: "10px 0px 45px -30px black" }}>
+    <Box
+      sx={{
+        padding: "20px 0px",
+        boxShadow: "10px 0px 45px -30px black",
+        position: "sticky",
+        top: "0",
+        zIndex: "1000",
+        background: "#ffffff90",
+        backdropFilter: "blur(15px)",
+      }}
+    >
       <Container maxWidth={"xl"} sx={{}}>
         <Grid
           container

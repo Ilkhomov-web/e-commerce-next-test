@@ -36,10 +36,10 @@ const Home = () => {
   return (
     <UserLayout>
       <SwiperHeader />
-      <Box sx={{ display: "flex", flexDirection: 'column',   alignItems: 'center', margin: '30px 0px'}}>
+      <Box sx={{ display: "flex", flexDirection: 'column',   alignItems: 'center', margin: '50px 0px'}}>
         <Typography variant='h2'>Just do it</Typography>
         <Typography variant='h5' color='#a7a7a7'>Captures messages that stands for more than just sport. </Typography>
-        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '30px'}}>
+        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '50px'}}>
         {categoryData.map((item)=>(
           <CategoryCard item={item} key={item.id} />
         ))}

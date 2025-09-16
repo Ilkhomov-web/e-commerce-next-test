@@ -1,5 +1,29 @@
-import "@/styles/globals.css";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 
-export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+const theme = createTheme({
+  palette: {
+    mode: "light", 
+    primary: {
+      main: "#1976d2", 
+    },
+  },
+  components: {
+    MuiContainer: {
+      defaultProps: {
+        disableGutters: true, 
+      },
+    },
+  },
+});
+
+function MyApp({ Component, pageProps }) {
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Component {...pageProps} />
+    </ThemeProvider>
+  );
 }
+
+export default MyApp;

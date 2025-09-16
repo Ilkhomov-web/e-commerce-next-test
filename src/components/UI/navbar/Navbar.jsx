@@ -1,23 +1,65 @@
 import React from "react";
 
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import SearchInput from "./SearchInput";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import MessageIcon from "@mui/icons-material/Message";
+import LoginIcon from "@mui/icons-material/Login";
 
 const Navbar = () => {
   return (
-    <Box sx={{ background: "green" }}>
-      <Container maxWidth={"xl"} sx={{ background: "yellow" }}>
-        <Grid container spacing={2}>
-          <Grid size={{ md: 2, sm: 3, xs: 3 }} sx={{ background: "red" }}>
-            <Typography variant="h4" fontWeight={"bold"}>
-              Online Shop
-            </Typography>
+    <Box sx={{ padding: "20px 0px", boxShadow: "10px 0px 45px -30px black" }}>
+      <Container maxWidth={"xl"} sx={{}}>
+        <Grid
+          container
+          spacing={2}
+          sx={{ display: "flex", alignItems: "center" }}
+        >
+          <Grid
+            size={{ md: 2, sm: 3, xs: 3 }}
+            sx={{ display: "flex", alignItems: "center" }}
+          >
+            <Box
+              component={"img"}
+              src={
+                "https://justmelanin.shop/cdn/shop/files/Black_and_White_Initial_Letter_Fashion_Brand_Logo-removebg-preview.png?v=1739640791&width=500"
+              }
+              width={"100px"}
+            ></Box>
           </Grid>
-          <Grid size={{ md: 6, sm: 3, xs: 3 }} sx={{ background: "red" }}>
+          <Grid size={{ md: 6, sm: 3, xs: 3 }} sx={{}}>
             <SearchInput />
           </Grid>
-          <Grid size={{ md: 4, sm: 3, xs: 3 }} sx={{ background: "red" }}>
-            s
+          <Grid
+            size={{ md: 4, sm: 3, xs: 3 }}
+            sx={{
+              display: "flex",
+              justifyContent: "right",
+              alignItems: "center",
+              gap: "20px",
+            }}
+          >
+            <Button sx={{ color: "black" }}>
+              <FavoriteBorderIcon sx={{ fontSize: "25px" }} />
+            </Button>
+            <Button sx={{ color: "black" }}>
+              <ShoppingCartIcon sx={{ fontSize: "25px" }} />
+            </Button>
+            <Button sx={{ color: "black" }}>
+              <MessageIcon sx={{ fontSize: "25px" }} />
+            </Button>
+            <Button
+              sx={{
+                gap: "10px",
+
+                color: "black",
+                padding: "5px 10px",
+              }}
+            >
+              <Typography>Login</Typography>
+              <LoginIcon sx={{ fontSize: "25px" }} />
+            </Button>
           </Grid>
         </Grid>
       </Container>

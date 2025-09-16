@@ -7,7 +7,7 @@ export default function UserLayout({ children, title = "My site" }) {
   return (
     <Box>
       <Navbar />
-      <Container component="main" sx={{ background: "gray" }}>
+      <Container component="main" maxWidth={"xl"} sx={{ background: "gray" }}>
         {children}
       </Container>
     </Box>

@@ -17,7 +17,7 @@ const Navbar = () => {
         top: "0",
         zIndex: "1000",
         background: "#ffffff90",
-        backdropFilter: "blur(15px)",
+        backdropFilter: "blur(100px)",
       }}
     >
       <Container maxWidth={"xl"} sx={{}}>

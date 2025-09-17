@@ -33,7 +33,7 @@ const categoryData = [
   }
 ];
 
-const products = [
+export const products = [
   {
     id: 1,
     productName: "Wireless Headphones",

@@ -12,10 +12,16 @@ const ProductDetails = () => {
   const { id } = router.query;
 
   const product = products.find((item) => item.id.toString() === id);
-  let calculated = (product.price * product.discount) / 100;
   if (!product) {
-    return <h2>Product not found</h2>;
+    return (
+      <UserLayout>
+        <Typography variant="h6">Product not found...</Typography>
+      </UserLayout>
+    );
   }
+
+  let calculated = (product.price * product.discount) / 100;
+  let finalPrice = calculated;
 
   return (
     <UserLayout>
@@ -79,7 +85,7 @@ const ProductDetails = () => {
                   fontSize: "18px",
                 }}
               >
-                ${calculated}
+                ${finalPrice}
               </Typography>
             </Box>
           </Grid>

@@ -3,32 +3,41 @@ import { Box, Typography, Grid } from "@mui/material";
 import React from "react";
 import StarIcon from "@mui/icons-material/Star";
 import UserLayout from "@/components/Layout/UserLayout";
+import AddToCard from "@/components/UI/AddToCard";
+import { products } from "@/pages";
+import ProductBreadcrumbs from "@/components/UI/Breadcrumbs";
 
 const ProductDetails = () => {
   const router = useRouter();
   const { id } = router.query;
 
+  const product = products.find((item) => item.id.toString() === id);
+  let calculated = (product.price * product.discount) / 100;
+  if (!product) {
+    return <h2>Product not found</h2>;
+  }
+
   return (
     <UserLayout>
+      <ProductBreadcrumbs productName={product.productName} />
       <Box sx={{ marginTop: "50px" }}>
-        <Grid container spacing={2}>
-          <Grid size={{ md: 4, sm: 3, xs: 3 }} sx={{ background: "green" }}>
+        <Grid container spacing={2} sx={{ display: "flex", alignItems: "top" }}>
+          <Grid size={{ md: 4, sm: 3, xs: 3 }} sx={{}}>
             <Box
               component="img"
-              src="https://picsum.photos/400/300?random=1"
+              src={product.productImg}
               alt="product"
               sx={{ width: "100%", borderRadius: "8px" }}
             />
           </Grid>
 
-          <Grid size={{ md: 4, sm: 3, xs: 3 }} sx={{ background: "green" }}>
-            <Typography variant="h5">Lorem, ipsum.</Typography>
+          <Grid size={{ md: 4, sm: 3, xs: 3 }} sx={{}}>
+            <Typography variant="h5">{product.productName}</Typography>
             <Typography sx={{ color: "#a9a9a9", mb: 2 }}>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias,
-              obcaecati!
+              {product.productDesc}
             </Typography>
             <Typography variant="h5" fontWeight="bold">
-              $5200
+              ${product.price}
             </Typography>
 
             <Box
@@ -44,9 +53,9 @@ const ProductDetails = () => {
                 }}
               >
                 <StarIcon sx={{ color: "gold" }} />
-                4.5
+                {product.rate}
               </Typography>
-              <Typography>Sold 100+</Typography>
+              <Typography>Sold {product.sold}+</Typography>
             </Box>
 
             <Box sx={{ display: "flex", gap: "10px", mt: 2 }}>
@@ -61,7 +70,7 @@ const ProductDetails = () => {
                   fontSize: "18px",
                 }}
               >
-                10%
+                {product.discount}%
               </Typography>
               <Typography
                 sx={{
@@ -70,15 +79,16 @@ const ProductDetails = () => {
                   fontSize: "18px",
                 }}
               >
-                $25
+                ${calculated}
               </Typography>
             </Box>
           </Grid>
 
-          <Grid size={{ md: 4, sm: 3, xs: 3 }} sx={{ background: "green" }}>
-            <Box sx={{ background: "red", height: "200px" }}>
-              Pastdagi content joyi (reviews, recommendations va h.k.)
-            </Box>
+          <Grid
+            size={{ md: 4, sm: 3, xs: 3 }}
+            sx={{ border: "1px solid #f1f1f1", padding: "20px" }}
+          >
+            <AddToCard product={product} />
           </Grid>
         </Grid>
       </Box>

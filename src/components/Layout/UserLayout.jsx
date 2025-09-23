@@ -2,6 +2,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Navbar from "../UI/navbar/Navbar";
+import Footer from "../UI/Footer";
 
 export default function UserLayout({ children, title = "My site" }) {
   return (
@@ -13,6 +14,7 @@ export default function UserLayout({ children, title = "My site" }) {
       <Container component="main" maxWidth="xl" sx={{ flexGrow: 1, py: 0 }}>
         {children}
       </Container>
+      <Footer />
     </Box>
   );
 }

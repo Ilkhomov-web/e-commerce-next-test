@@ -4,8 +4,13 @@ import CheckIcon from "@mui/icons-material/Check";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShareIcon from "@mui/icons-material/Share";
+import { useDispatch } from "react-redux";
+import { incrementQuantity, decrementQuantity } from "@/store/slices/cartSlice";
 
 const AddToCard = (prop) => {
+  const dispatch = useDispatch();
+  const addToCart = (id) => {};
+
   const { product } = prop;
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "10px" }}>
@@ -54,8 +59,12 @@ const AddToCard = (prop) => {
           }}
         >
           <Typography>1</Typography>
-          <Button>-</Button>
-          <Button>+</Button>
+          <Button onClick={() => dispatch(decrementQuantity(product.id))}>
+            -
+          </Button>
+          <Button onClick={() => dispatch(incrementQuantity(product.id))}>
+            +
+          </Button>
         </Box>
       </Box>
       <Box

@@ -1,5 +1,5 @@
 import React from "react";
-
+import { useSelector, useDispatch } from "react-redux";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import SearchInput from "./SearchInput";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -8,6 +8,9 @@ import MessageIcon from "@mui/icons-material/Message";
 import LoginIcon from "@mui/icons-material/Login";
 
 const Navbar = () => {
+  const cart = useSelector((state) => state.cart);
+  console.log(cart);
+
   return (
     <Box
       sx={{
@@ -55,6 +58,25 @@ const Navbar = () => {
             </Button>
             <Button sx={{ color: "black" }}>
               <ShoppingCartIcon sx={{ fontSize: "25px" }} />
+              <Typography
+                sx={{
+                  background: "red",
+                  width: "20px",
+                  height: "20px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: "50%",
+                  color: "white",
+                  position: "absolute",
+                  top: "0px",
+                  right: "10px",
+                  fontSize: "12px",
+                  fontWeight: "600",
+                }}
+              >
+                {cart.products.length}
+              </Typography>
             </Button>
             <Button sx={{ color: "black" }}>
               <MessageIcon sx={{ fontSize: "25px" }} />

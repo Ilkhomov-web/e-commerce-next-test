@@ -3,10 +3,13 @@ import { Box, Typography } from "@mui/material";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import StarIcon from "@mui/icons-material/Star";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/store/slices/cartSlice";
 
 const ProductCard = (prop) => {
   const { product } = prop;
   const { price, discount } = product;
+  const dispatch = useDispatch();
 
   let calculated = (price * discount) / 100;
 
@@ -14,6 +17,7 @@ const ProductCard = (prop) => {
     <Link
       href={`/products/${product.id}`}
       style={{ textDecoration: "none", color: "currentcolor" }}
+      onClick={() => dispatch(addToCart(product))}
     >
       <Box
         sx={{

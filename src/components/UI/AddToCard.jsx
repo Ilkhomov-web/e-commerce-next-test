@@ -4,14 +4,31 @@ import CheckIcon from "@mui/icons-material/Check";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShareIcon from "@mui/icons-material/Share";
-import { useDispatch } from "react-redux";
-import { incrementQuantity, decrementQuantity } from "@/store/slices/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addToCart,
+  incrementQuantity,
+  decrementQuantity,
+} from "@/store/slices/cartSlice";
 
 const AddToCard = (prop) => {
   const dispatch = useDispatch();
-  const addToCart = (id) => {};
-
+  const { products, totalAmount } = useSelector((state) => state.cart);
   const { product } = prop;
+
+  const cartItem = products.find((item) => item.id === product.id);
+  const quantity = cartItem ? cartItem.quantity : 0;
+
+  const handleAddToCart = () => {
+    dispatch(
+      addToCart({
+        id: product.id,
+        title: product.productName,
+        price: product.price,
+        image: product.productImg,
+      })
+    );
+  };
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "10px" }}>
       <Box
@@ -58,8 +75,11 @@ const AddToCard = (prop) => {
             borderRadius: "12px",
           }}
         >
-          <Typography>1</Typography>
-          <Button onClick={() => dispatch(decrementQuantity(product.id))}>
+          <Typography>{quantity}</Typography>
+          <Button
+            onClick={() => dispatch(decrementQuantity(product.id))}
+            disabled={quantity === 0}
+          >
             -
           </Button>
           <Button onClick={() => dispatch(incrementQuantity(product.id))}>
@@ -77,7 +97,10 @@ const AddToCard = (prop) => {
       >
         <Typography>SubTotal</Typography>
         <Typography sx={{ fontSize: "25px", fontWeight: "600" }}>
-          ${product.price}
+          $
+          {cartItem
+            ? (cartItem.price * cartItem.quantity).toFixed(2)
+            : product.price.toFixed(2)}
         </Typography>
         {/* <Typography
           sx={{
@@ -91,7 +114,7 @@ const AddToCard = (prop) => {
           Rp 4500
         </Typography> */}
       </Box>
-      <Button sx={{ border: "1px solid #1976d2" }}>
+      <Button sx={{ border: "1px solid #1976d2" }} onClick={handleAddToCart}>
         <ShoppingCartIcon /> Add To Cart
       </Button>
       <Button sx={{ background: "#1976d2", color: "white" }}>Buy Now</Button>

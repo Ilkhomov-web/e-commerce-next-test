@@ -8,10 +8,16 @@ import { addToCart } from "@/store/slices/cartSlice";
 
 const ProductCard = (prop) => {
   const { product } = prop;
-  const { price, discount } = product;
+  const { price } = product;
   const dispatch = useDispatch();
 
-  let calculated = (price * discount) / 100;
+  const discountPercent =
+    typeof product.discount === "object"
+      ? product.discount.active
+        ? product.discount.percent
+        : 0
+      : product.discount || 0;
+  let calculated = (price * discountPercent) / 100;
 
   return (
     <Link
@@ -61,7 +67,7 @@ const ProductCard = (prop) => {
                 fontSize: "18px",
               }}
             >
-              {product.discount}%
+              {discountPercent}%
             </Typography>
             <Typography
               sx={{

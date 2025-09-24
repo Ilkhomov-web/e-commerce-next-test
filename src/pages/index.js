@@ -4,7 +4,7 @@ import UserLayout from '@/components/Layout/UserLayout'
 import SwiperHeader from '@/components/UI/swiper/Swiper'
 import { Box, Typography } from "@mui/material";
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const categoryData = [
   {
@@ -33,106 +33,23 @@ const categoryData = [
   }
 ];
 
-export const products = [
-  {
-    id: 1,
-    productName: "Wireless Headphones",
-    productDesc:
-      "High quality product with modern design, durable materials, comfortable usage, and suitable for daily lifestyle needs.",
-    price: 120,
-    discount: 15,
-    deliveredTime: "3 hours",
-    rate: 4.5,
-    sold: 87,
-    productImg: "https://picsum.photos/400/300?random=1",
-  },
-  {
-    id: 2,
-    productName: "Smartphone",
-    productDesc:
-      "High quality product with modern design, durable materials, comfortable usage, and suitable for daily lifestyle needs.",
-    price: 900,
-    discount: 10,
-    deliveredTime: "6 hours",
-    rate: 4.8,
-    sold: 142,
-    productImg: "https://picsum.photos/400/300?random=2",
-  },
-  {
-    id: 3,
-    productName: "Gaming Mouse",
-    productDesc:
-      "High quality product with modern design, durable materials, comfortable usage, and suitable for daily lifestyle needs.",
-    price: 45,
-    discount: 5,
-    deliveredTime: "2 hours",
-    rate: 4.2,
-    sold: 65,
-    productImg: "https://picsum.photos/400/300?random=3",
-  },
-  {
-    id: 4,
-    productName: "Laptop",
-    productDesc:
-      "High quality product with modern design, durable materials, comfortable usage, and suitable for daily lifestyle needs.",
-    price: 1200,
-    discount: 12,
-    deliveredTime: "1 day",
-    rate: 4.7,
-    sold: 210,
-    productImg: "https://picsum.photos/400/300?random=4",
-  },
-  {
-    id: 5,
-    productName: "Smartwatch",
-    productDesc:
-      "High quality product with modern design, durable materials, comfortable usage, and suitable for daily lifestyle needs.",
-    price: 250,
-    discount: 20,
-    deliveredTime: "4 hours",
-    rate: 4.3,
-    sold: 99,
-    productImg: "https://picsum.photos/400/300?random=5",
-  },
-  {
-    id: 6,
-    productName: "Bluetooth Speaker",
-    productDesc:
-      "High quality product with modern design, durable materials, comfortable usage, and suitable for daily lifestyle needs.",
-    price: 80,
-    discount: 8,
-    deliveredTime: "3 hours",
-    rate: 4.1,
-    sold: 54,
-    productImg: "https://picsum.photos/400/300?random=6",
-  },
-  {
-    id: 7,
-    productName: "Mechanical Keyboard",
-    productDesc:
-      "High quality product with modern design, durable materials, comfortable usage, and suitable for daily lifestyle needs.",
-    price: 100,
-    discount: 10,
-    deliveredTime: "5 hours",
-    rate: 4.6,
-    sold: 77,
-    productImg: "https://picsum.photos/400/300?random=7",
-  },
-  {
-    id: 8,
-    productName: "Drone",
-    productDesc:
-      "High quality product with modern design, durable materials, comfortable usage, and suitable for daily lifestyle needs.",
-    price: 500,
-    discount: 18,
-    deliveredTime: "8 hours",
-    rate: 4.4,
-    sold: 63,
-    productImg: "https://picsum.photos/400/300?random=8",
-  },
-]
+const initialProducts = []
 
 const Home = () => {
+  const [products, setProducts] = useState(initialProducts)
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch('/api/products')
+        const data = await res.json()
+        setProducts(data)
+      } catch (e) {
+        // ignore for now
+      }
+    }
+    fetchProducts()
+  }, [])
   return (
     <UserLayout>
       <SwiperHeader />

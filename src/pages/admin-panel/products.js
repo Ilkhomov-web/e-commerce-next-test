@@ -1,12 +1,15 @@
 import React from 'react'
 import AdminLayout from '@/components/Layout/AdminLayout'
 
-export default function AdminDashboardPage() {
+export default function AdminProductsPage() {
   return (
-    <AdminLayout title="Dashboard">
+    <AdminLayout title="All products">
       <div>
-        Welcome to the admin dashboard.
+        All products list (coming soon)
       </div>
     </AdminLayout>
   )
 }
+
+
+

@@ -1,26 +1,57 @@
 import { useRouter } from "next/router";
 import { Box, Typography, Grid } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import StarIcon from "@mui/icons-material/Star";
 import UserLayout from "@/components/Layout/UserLayout";
 import AddToCard from "@/components/UI/AddToCard";
-import { products } from "@/pages";
 import ProductBreadcrumbs from "@/components/UI/Breadcrumbs";
 
 const ProductDetails = () => {
   const router = useRouter();
   const { id } = router.query;
+  const [product, setProduct] = useState(null);
+  const [notFound, setNotFound] = useState(false);
 
-  const product = products.find((item) => item.id.toString() === id);
-  if (!product) {
+  useEffect(() => {
+    if (!id) return;
+    const fetchProduct = async () => {
+      try {
+        const res = await fetch(`/api/products/${id}`);
+        if (!res.ok) {
+          setNotFound(true);
+          return;
+        }
+        const data = await res.json();
+        setProduct(data);
+      } catch (e) {
+        setNotFound(true);
+      }
+    };
+    fetchProduct();
+  }, [id]);
+
+  if (notFound) {
     return (
       <UserLayout>
         <Typography variant="h6">Product not found...</Typography>
       </UserLayout>
     );
   }
+  if (!product) {
+    return (
+      <UserLayout>
+        <Typography>Loading...</Typography>
+      </UserLayout>
+    );
+  }
 
-  let calculated = (product.price * product.discount) / 100;
+  const discountPercent =
+    typeof product.discount === "object"
+      ? product.discount.active
+        ? product.discount.percent
+        : 0
+      : product.discount || 0;
+  let calculated = (product.price * discountPercent) / 100;
   let finalPrice = calculated;
 
   return (
@@ -76,7 +107,7 @@ const ProductDetails = () => {
                   fontSize: "18px",
                 }}
               >
-                {product.discount}%
+                {discountPercent}%
               </Typography>
               <Typography
                 sx={{

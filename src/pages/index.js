@@ -5,6 +5,7 @@ import SwiperHeader from '@/components/UI/swiper/Swiper'
 import { Box, Typography } from "@mui/material";
 
 import React, { useEffect, useState } from 'react'
+import Loading from '@/components/UI/Loading'
 
 const categoryData = [
   {
@@ -37,15 +38,19 @@ const initialProducts = []
 
 const Home = () => {
   const [products, setProducts] = useState(initialProducts)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setLoading(true)
       try {
         const res = await fetch('/api/products')
         const data = await res.json()
         setProducts(data)
       } catch (e) {
         // ignore for now
+      } finally {
+        setLoading(false)
       }
     }
     fetchProducts()
@@ -64,9 +69,13 @@ const Home = () => {
         <Box sx={{display: "flex", flexDirection: 'column',   alignItems: 'center', margin: '100px 0px'}}>
           <Typography variant='h2'>All Product</Typography>
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '50px', flexWrap: 'wrap', gap: '40px'}}>
-            {products.map((product) => (
-              <ProductCard product={product} key={product.id} />
-            ))}
+            {loading ? (
+              <Loading label="Loading products..." />
+            ) : (
+              products.map((product) => (
+                <ProductCard product={product} key={product.id} />
+              ))
+            )}
           </Box>
         </Box>
       </Box>

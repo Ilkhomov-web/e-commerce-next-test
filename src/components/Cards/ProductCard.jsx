@@ -36,7 +36,11 @@ const ProductCard = (prop) => {
       >
         <Box
           component={"img"}
-          sx={{ borderTopLeftRadius: "12px", borderTopRightRadius: "12px" }}
+          sx={{
+            borderTopLeftRadius: "12px",
+            height: "250px",
+            borderTopRightRadius: "12px",
+          }}
           width={"100%"}
           src={product.productImg}
         ></Box>

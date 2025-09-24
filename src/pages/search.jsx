@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import UserLayout from "@/components/Layout/UserLayout";
 import { Box, Typography } from "@mui/material";
+import Loading from "@/components/UI/Loading";
 import ProductCard from "@/components/Cards/ProductCard";
 import { useRouter } from "next/router";
 
@@ -43,9 +44,13 @@ export default function SearchPage() {
             gap: "40px",
           }}
         >
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+          {loading ? (
+            <Loading label="Searching..." />
+          ) : (
+            products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))
+          )}
         </Box>
         {!loading && products.length === 0 && (
           <Typography color="text.secondary" sx={{ mt: 2 }}>

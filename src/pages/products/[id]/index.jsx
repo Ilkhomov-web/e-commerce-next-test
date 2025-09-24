@@ -5,6 +5,7 @@ import StarIcon from "@mui/icons-material/Star";
 import UserLayout from "@/components/Layout/UserLayout";
 import AddToCard from "@/components/UI/AddToCard";
 import ProductBreadcrumbs from "@/components/UI/Breadcrumbs";
+import Loading from "@/components/UI/Loading";
 
 const ProductDetails = () => {
   const router = useRouter();
@@ -40,7 +41,7 @@ const ProductDetails = () => {
   if (!product) {
     return (
       <UserLayout>
-        <Typography>Loading...</Typography>
+        <Loading label="Loading product..." />
       </UserLayout>
     );
   }

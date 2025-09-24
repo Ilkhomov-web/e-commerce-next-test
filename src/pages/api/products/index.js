@@ -2,7 +2,7 @@ import { connectToDatabase } from "@/lib/db";
 import Product from "@/models/Product";
 
 export default async function handler(req, res) {
-  const { method } = req;
+  const { method, query } = req;
   try {
     await connectToDatabase();
   } catch (e) {
@@ -11,7 +11,16 @@ export default async function handler(req, res) {
 
   if (method === "GET") {
     try {
-      const products = await Product.find({}).sort({ createdAt: -1 }).lean();
+      const { q } = query;
+      const filter = q
+        ? {
+            $or: [
+              { productName: { $regex: q, $options: "i" } },
+              { productDescription: { $regex: q, $options: "i" } },
+            ],
+          }
+        : {};
+      const products = await Product.find(filter).sort({ createdAt: -1 }).lean();
       return res.status(200).json(products);
     } catch (e) {
       return res.status(500).json({ message: "Failed to fetch products" });

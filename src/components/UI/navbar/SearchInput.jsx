@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import ListIcon from "@mui/icons-material/List";
+import { useRouter } from "next/router";
 
 const SearchInput = () => {
+  const router = useRouter();
+  const [query, setQuery] = useState("");
+
+  const submit = () => {
+    const q = query.trim();
+    router.push(`/search${q ? `?q=${encodeURIComponent(q)}` : ""}`);
+  };
+
   return (
     <Box
       sx={{
@@ -36,6 +45,11 @@ const SearchInput = () => {
         fullWidth
         placeholder={"Search..."}
         variant="outlined"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") submit();
+        }}
         sx={{
           "& .MuiOutlinedInput-root": {
             "& fieldset": {
@@ -60,6 +74,7 @@ const SearchInput = () => {
           borderBottomRightRadius: "12px",
           color: "black",
         }}
+        onClick={submit}
       >
         <SearchIcon />
       </Button>
